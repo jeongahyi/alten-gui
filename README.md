@@ -1,27 +1,81 @@
-# AltenMonitoring
+# AltenMonitoring GUI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.3.
+![gui](images/gui.png)
 
-## Development server
+## Full architecture sketch to solution
+This solution is light and flexible by using cloud platform(GCP), microservices architecture(Firebase) and serverless architecture(Cloud functions). So it can be easily extended with new features to give a better user experience. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+![sketch](images/architecture_sketch.png)
 
-## Code scaffolding
+* Cloud Firestore: realtime, cloud hosted, NoSQL database
+* Cloud Functions: serverless, event driven backend
+* Firebase Hosting: global web hosting
+* Angular: web application framework
+```bash
+├── app
+│   ├── models                               # models (interfaces)
+│   │   ├── customer.ts
+│   │   ├── status-counter.ts
+│   │   ├── vehicle.ts
+│   │   └── vehicle-info.ts
+│   ├── monitoring
+│   │   ├── monitoring.component.css
+│   │   ├── monitoring.component.html        # monitoring html
+│   │   ├── monitoring.component.ts          # monitoring component
+│   │   └── monitoring.component.spec.ts
+│   ├── vehicle-status
+│   │   ├── vehicle-status.service.ts        # service logic
+│   │   └── vehicle-status.service.spec.ts   # test cases of service logic
+│   ├── ..
+│   ├── customer.service.ts
+│   ├── customer.service.spec.ts
+│   ├── search-filter.pipe.ts                # search filter setting
+│   ├── search-filter.pipe.spec.ts           # test cases of search filter
+│   ├── vehicle.service.ts
+│   ├── vehicler.service.spec.ts
+│   ├── ..
+│   ├── environments
+│   └── ..                
+├── ..
+├── .travis.yml                              # configs of travis & sonarcloud
+├── firebase.json                            # configs of firebase
+└── ..
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## How to run the solution
+### Run the Web GUI locally
 
-## Build
+Clone alten-gui and install the dependencies
+``` 
+$ npm install
+$ ng serve
+```
+Accessing local Web GUI: http://localhost:4200/
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Use Travis CI to verify the code and deploy automatically
 
-## Running unit tests
+![ci](images/ci.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+1. Push changes to master branch
+2. Travis CI will be started automatically (Travis CI : https://travis-ci.com/github/jeongahyi/alten-gui )
+3. Static analysis (SonarCloud link : https://sonarcloud.io/dashboard?id=jeongahyi_alten-gui )
+4. Unit tests (ng test with Karma)
+5. Automatically deploy to Firebase hosting when test & build is succeeded
+```
 
-## Running end-to-end tests
+### Production URL
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Here's the live version of the app : https://alten-tool.web.app/  
+(the value automatically refreshs every minute)
 
-## Further help
+\* sample of the app with filtered view
+![filter](images/online_search.png)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### AltenMonitoring API
+
+This API is serverless function by using 'Cloud Functions for Firebase'.  
+(It is written only to SIMULATE the real API)
+
+Below is the source code of this API.  
+* Cloud functions firebase: https://github.com/jeongahyi/alten-api
