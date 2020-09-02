@@ -1,0 +1,28 @@
+div.vehicle-status {
+  display: flex;
+}
+
+.custom-chart {
+  width: 50%;
+  align-content: center;
+}
+
+.vehicle-table {
+  height: 500px;
+  font-weight: 300;
+  align-content: center;
+  text-align: center;
+}
+
+.status-icon {
+  padding-right: 0.5rem;
+  padding-left: 1rem
+}
+
+.status-on {
+  color: #02dbc5;
+}
+
+.status-off {
+  color: #ff0266;
+}
